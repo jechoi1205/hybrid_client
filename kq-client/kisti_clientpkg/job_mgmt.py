@@ -2,8 +2,6 @@ import requests, json
 import json, time, requests
 from sqlalchemy.orm import Session
 from qiskit import QuantumCircuit, transpile
-
-from .resource_mgmt import get_resource, patch_resource
 from .rabbitmq_utils import rabbitmq_update_cpu_iter, rabbitmq_check_qpu_iter, rabbitmq_update_job_status
 
 server_url = "http://150.183.117.145:8001"
@@ -12,42 +10,19 @@ headers = {
 }
 
 def submit_file():
-    input_file_path = input("Enter the input file path: ").strip()
-    qasm_file_path = input("Enter the QASM file path: ").strip()
+    file_path = input("Enter a file name or file path [ex) ./files/tmp.csv]: ").strip()
 
-    with open(input_file_path, 'r') as csv_file:
-        csv_data = list(csv_file)
-        print("csv_data = ", csv_data)
-
-    with open(qasm_file_path, 'r') as qc_file:
-        qasm_data = list(qc_file)
-        print("qasm_data = ", qasm_data)
-
-    job_data = {
-        "type": "qasm",
-        "shot": 1024,
-        "input_file": 'OPENQASM 2.0; \ninclude "qelib1.inc"; \nqreg q[3]; \ncreg c[3]; \nrx(1.0) q[0]; \nry(0) q[0]; \nh q[0]; \ncx q[0], q[1]; \nz q[0]; \nmeasure q[0] -> c[0]; \nmeasure q[1] -> c[1]; \nmeasure q[2] -> c[2];'
-    }
-
-    # 서버에 JSON 형식으로 데이터 전송
-    response = requests.post(f"{server_url}/job/", json=job_data)
-    print("data sent:", response.status_code)
-
-    csv_payload = {
-        "json_data": csv_data,
-        "filename": input_file_path
-    }
-    response = requests.post(f"{server_url}/files/", json=csv_payload)
-    print("data sent:", response.status_code)
-
-    qasm_payload = {
-        "json_data": qasm_data,
-        "filename": qasm_file_path
-    }
-    qc_json_string = json.dumps(qasm_data)
-    response = requests.post(f"{server_url}/files/", json=qasm_payload)
-    print("data sent:", response.status_code)
+    with open(file_path, 'r') as file:
+        data = list(file)
+        print("file_data = ", data)
     
+    payload = {
+        "json_data": data,
+        "filename" : file_path
+    }
+    response = requests.post(f"{server_url}/files/", json=payload)
+    print("data sent: ", response.status_code)
+
     
     
 def check_job_manager():

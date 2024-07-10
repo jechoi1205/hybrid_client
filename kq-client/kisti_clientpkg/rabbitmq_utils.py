@@ -70,3 +70,6 @@ def rabbitmq_update_cpu_iter(iter: int):
 
 def rabbitmq_check_qpu_iter():
     return RabbitConsumer(qpu_iter_queue).consume('qpu_iter_queue')
+
+def rabbitmq_check_cpu_iter():
+    return RabbitConsumer(cpu_iter_queue).consume('cpu_iter_queue')
