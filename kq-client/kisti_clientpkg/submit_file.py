@@ -6,7 +6,7 @@ headers = {
 }
 
 def submit_file():
-    file_path = input("Enter a file name or file path [ex) ./files/tmp.csv]: ").strip()
+    file_path = input("Enter a file name or file path [ex) ./example_files/tmp.csv]: ").strip()
 
     with open(file_path, 'r') as file:
         data = list(file)
