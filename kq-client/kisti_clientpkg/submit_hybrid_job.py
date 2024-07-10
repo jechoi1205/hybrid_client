@@ -51,6 +51,8 @@ def submit_hybrid_job():
             else:
                 print("error....")
                 
+    print("~~~cpu job end~~~")
+                
     ### 여기까지 사용자 알고리즘을 위한 코드 부분
                 
     #crud.update_job_result(
