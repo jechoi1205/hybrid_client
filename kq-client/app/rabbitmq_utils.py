@@ -1,8 +1,17 @@
 import json
-from .mq_pub_con import RabbitConsumer, RabbitPublisher, QueueInformation
+from app.libs.mq_pub_con import RabbitPublisher, QueueInformation, RabbitConsumer
+
+RABBITMQ_INFO = {
+    "host": "localhost",
+    "port": 5672,
+    "username": "admin",
+    "password": "admin",
+    "exchange": "kisti.quantum.computing",
+    "routekey": "quantum.job.status",
+}
 
 RABBITMQ_CPU_ITERQ = {
-    "host": "150.183.117.145",
+    "host": "localhost",
     "port": 5672,
     "username": "admin",
     "password": "admin",
@@ -11,13 +20,23 @@ RABBITMQ_CPU_ITERQ = {
 }
 
 RABBITMQ_QPU_ITERQ = {
-    "host": "150.183.117.145",
+    "host": "localhost",
     "port": 5672,
     "username": "admin",
     "password": "admin",
     "exchange": "kisti.quantum.computing",
     "routekey": "qpu_iter",
 }
+
+queue = (
+    QueueInformation.builder()
+    .host(RABBITMQ_INFO["host"])
+    .port(RABBITMQ_INFO["port"])
+    .username(RABBITMQ_INFO["username"])
+    .password(RABBITMQ_INFO["password"])
+    .exchange(RABBITMQ_INFO["exchange"])
+    .build()
+)
 
 cpu_iter_queue = (
     QueueInformation.builder()
@@ -39,22 +58,15 @@ qpu_iter_queue = (
     .build()
 )
 
+def rabbitmq_update_job_status(jobUUID: str, status: str):
+    payload = {"jobUUID": jobUUID, "status": status}
+    body = json.dumps(payload)
+    RabbitPublisher(queue).publish(RABBITMQ_INFO["routekey"], body)
+
 def rabbitmq_update_cpu_iter(iter: int):
-    payload = {
-        "iter": iter
-    }
+    payload = {"iter": iter}
     body = json.dumps(payload)
     RabbitPublisher(cpu_iter_queue).publish(RABBITMQ_CPU_ITERQ["routekey"], body)
 
-def rabbitmq_update_qpu_iter(iter: int):
-    payload = {
-        "iter": iter
-    }
-    body = json.dumps(payload)
-    RabbitPublisher(qpu_iter_queue).publish(RABBITMQ_QPU_ITERQ["routekey"], body)
-
 def rabbitmq_check_qpu_iter():
     return RabbitConsumer(qpu_iter_queue).consume('qpu_iter_queue')
-
-def rabbitmq_check_cpu_iter():
-    return RabbitConsumer(cpu_iter_queue).consume('cpu_iter_queue')
