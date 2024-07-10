@@ -1,5 +1,5 @@
-from app.resource_mgmt import get_resource, patch_resource
-from app.job_mgmt import submit_file, check_job_manager, submit_hybrid_job, check_job_info, delete_job, get_job_status, get_job_result
+from .resource_mgmt import get_resource, patch_resource
+from .job_mgmt import submit_file, check_job_manager, submit_hybrid_job, check_job_info, delete_job, get_job_status, get_job_result
 
 def display_menu():
     while True:

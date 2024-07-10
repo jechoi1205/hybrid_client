@@ -1,5 +1,5 @@
 import json
-from app.libs.mq_pub_con import RabbitPublisher, QueueInformation, RabbitConsumer
+from .mq_pub_con import RabbitPublisher, QueueInformation, RabbitConsumer
 
 RABBITMQ_INFO = {
     "host": "localhost",

@@ -1,13 +1,10 @@
 import requests, json
-import argparse
-import json, time, csv, requests, sys
-from app.db import crud, schemas
-from app.libs.resource import resource_info
+import json, time, requests
 from sqlalchemy.orm import Session
 from qiskit import QuantumCircuit, transpile
 
-from app.resource_mgmt import get_resource, patch_resource
-from app.rabbitmq_utils import rabbitmq_update_cpu_iter, rabbitmq_check_qpu_iter, rabbitmq_update_job_status
+from .resource_mgmt import get_resource, patch_resource
+from .rabbitmq_utils import rabbitmq_update_cpu_iter, rabbitmq_check_qpu_iter, rabbitmq_update_job_status
 
 server_url = "http://150.183.117.145:8001"
 headers = {
@@ -64,7 +61,7 @@ def check_job_manager():
         print(f"Error: {e}")
         return None
 
-
+"""
 def get_qreg_to_qasm(qasm_string: str):
     for line in qasm_string.split("\n"):
         line = line.rstrip()
@@ -81,8 +78,9 @@ def get_creg_to_qasm(qasm_string: str):
             creg_line = line.split(sep="[")
             creg_num = creg_line[1].split(sep="]")
             return int(creg_num[0])
+"""
 
-
+"""
 def excute_qiskit_circuit_to_qasm(jobInfo: schemas.JobCreate):
     circ = QuantumCircuit.from_qasm_str(jobInfo.input_file)
 
@@ -118,7 +116,7 @@ def excute_qiskit_circuit_to_qasm(jobInfo: schemas.JobCreate):
             }
         ],
     }
-
+"""
 
 #def submit_hybrid_job(jobInfo: schemas.JobCreate, db: Session, jobUUID: str):
 def submit_hybrid_job():
