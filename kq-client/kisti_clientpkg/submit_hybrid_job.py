@@ -1,5 +1,5 @@
 import time
-import requests
+import subprocess
 from .rabbitmq_utils import rabbitmq_update_cpu_iter, rabbitmq_check_qpu_iter, rabbitmq_update_job_status
 
 
