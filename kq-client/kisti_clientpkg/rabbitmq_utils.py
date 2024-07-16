@@ -67,6 +67,13 @@ def rabbitmq_update_cpu_iter(iter: int):
     payload = {"iter": iter}
     body = json.dumps(payload)
     RabbitPublisher(cpu_iter_queue).publish(RABBITMQ_CPU_ITERQ["routekey"], body)
+    
+def rabbitmq_update_qpu_iter(iter: int):
+    payload = {
+        "iter": iter
+    }
+    body = json.dumps(payload)
+    RabbitPublisher(qpu_iter_queue).publish(RABBITMQ_QPU_ITERQ["routekey"], body)
 
 def rabbitmq_check_qpu_iter():
     return RabbitConsumer(qpu_iter_queue).consume('qpu_iter_queue')
