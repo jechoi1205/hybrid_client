@@ -62,7 +62,7 @@ def patch_resource():
             headers={"accept": "application/json"}
         )
         response.raise_for_status()
-        print("PATCH /resource Response:")
-        print(response.json())
+        print("PATCH /resource Response: " + change_state)
+        #print(response.json())
     except requests.exceptions.RequestException as e:
         print(f"Error: {e}")
