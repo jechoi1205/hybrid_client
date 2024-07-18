@@ -1,7 +1,11 @@
 import requests
 from rich import print_json
+from dotenv import load_dotenv
+import os
 
-server_url = "http://150.183.117.145:8001"
+load_dotenv()
+
+server_url = os.getenv("SERVER_URL")
 
 def get_resource(p_flag: bool):
     try:

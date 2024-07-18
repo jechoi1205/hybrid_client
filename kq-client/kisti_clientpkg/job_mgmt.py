@@ -1,8 +1,10 @@
 import requests
 from sqlalchemy.orm import Session
 from qiskit import QuantumCircuit, transpile
+from dotenv import load_dotenv
+import os
 
-server_url = "http://150.183.117.145:8001"
+server_url = os.getenv("SERVER_URL")
 headers = {
     "Content-Type": "application/json"
 }

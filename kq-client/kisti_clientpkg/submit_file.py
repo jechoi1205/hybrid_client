@@ -1,8 +1,13 @@
 import requests
 from rich.console import Console
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 console = Console()
-server_url = "http://150.183.117.145:8001"
+server_url = os.getenv("SERVER_URL")
+
 
 def submit_file():
     file_path = console.input("[bold cyan]Enter a file name or file path [ex) ./files/tmp.csv]:[/] ").strip()

@@ -1,30 +1,33 @@
-import json
+import json, os
 from .mq_pub_con import RabbitPublisher, QueueInformation, RabbitConsumer
+from dotenv import load_dotenv
+
+load_dotenv()
 
 RABBITMQ_INFO = {
-    "host": "localhost",
-    "port": 5672,
-    "username": "admin",
-    "password": "admin",
-    "exchange": "kisti.quantum.computing",
-    "routekey": "quantum.job.status",
+    "host": os.getenv("RABBITMQ_HOST"),
+    "port": int(os.getenv("RABBITMQ_PORT")),
+    "username": os.getenv("RABBITMQ_USERNAME"),
+    "password": os.getenv("RABBITMQ_PASSWORD"),
+    "exchange": os.getenv("RABBITMQ_EXCHANGE"),
+    "routekey": os.getenv("RABBITMQ_ROUTEKEY", "quantum.job.status"),
 }
 
 RABBITMQ_CPU_ITERQ = {
-    "host": "localhost",
-    "port": 5672,
-    "username": "admin",
-    "password": "admin",
-    "exchange": "kisti.quantum.computing",
+    "host": os.getenv("RABBITMQ_HOST"),
+    "port": int(os.getenv("RABBITMQ_PORT")),
+    "username": os.getenv("RABBITMQ_USERNAME"),
+    "password": os.getenv("RABBITMQ_PASSWORD"),
+    "exchange": os.getenv("RABBITMQ_EXCHANGE"),
     "routekey": "cpu_iter",
 }
 
 RABBITMQ_QPU_ITERQ = {
-    "host": "localhost",
-    "port": 5672,
-    "username": "admin",
-    "password": "admin",
-    "exchange": "kisti.quantum.computing",
+    "host": os.getenv("RABBITMQ_HOST"),
+    "port": int(os.getenv("RABBITMQ_PORT")),
+    "username": os.getenv("RABBITMQ_USERNAME"),
+    "password": os.getenv("RABBITMQ_PASSWORD"),
+    "exchange": os.getenv("RABBITMQ_EXCHANGE"),
     "routekey": "qpu_iter",
 }
 
