@@ -3,11 +3,11 @@ from sqlalchemy.orm import Session
 from qiskit import QuantumCircuit, transpile
 from dotenv import load_dotenv
 import os
+from pennylane import numpy as np
+import pennylane as qml
 
 server_url = os.getenv("SERVER_URL")
-headers = {
-    "Content-Type": "application/json"
-}
+chsh_dev = qml.device("default.qubit", wires=2)
     
 def check_job_manager():
     try:
@@ -76,6 +76,53 @@ def excute_qiskit_circuit_to_qasm(jobInfo: schemas.JobCreate):
         ],
     }
 """
+def run_kriss_emul(emul_file):
+    payload = {
+        "json_data": emul_file
+    }
+    try:
+        response = requests.post(f"http://192.168.0.9:8001/kriss_emul/", json=payload)
+        response.raise_for_status()
+        json_response = response.json()
+        #print(f"POST /emul/ Response:")
+        if json_response["status"]:
+            #print("Script execution succeeded.")
+            if "output" in json_response:
+                #print("Script output:")
+                print((json_response["output"]))
+        else:
+            print("Script execution failed.")
+            if "error_message" in json_response:
+                print("Error message:")
+                print(json_response["error_message"])
+        
+        return json_response["output"]
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {e}")
+        return None
+
+
+def run_emul(payload):
+    try:
+        response = requests.post(f"http://192.168.0.9:8001/emul/", json=payload)
+        response.raise_for_status()
+        json_response = response.json()
+        #print(f"POST /emul/ Response:")
+        if json_response["status"]:
+            #print("Script execution succeeded.")
+            if "output" in json_response:
+                #print("Script output:")
+                print((float)(json_response["output"]))
+        else:
+            print("Script execution failed.")
+            if "error_message" in json_response:
+                print("Error message:")
+                print(json_response["error_message"])
+        
+        return json_response["output"]
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {e}")
+        return None
         
 
 def check_job_info(job_uuid):

@@ -4,9 +4,10 @@ from rich.prompt import Prompt, Confirm
 from rich.panel import Panel
 from rich import box
 from kisti_clientpkg.job_mgmt import *
-from kisti_clientpkg.submit_file import submit_file
+from kisti_clientpkg.submit_file import M_submit_file
 from kisti_clientpkg.submit_hybrid_job import submit_hybrid_job
 from kisti_clientpkg.resource_mgmt import *
+from kisti_clientpkg.CHSH_ineq_RYU_test import CHSH_client_part
 
 console = Console()
 
@@ -41,11 +42,12 @@ def display_menu():
         elif num == '2':
             patch_resource()
         elif num == '3':
-            submit_file()
+            M_submit_file()
         elif num == '4':
             check_job_manager()
         elif num == '5':
-            submit_hybrid_job()
+            #submit_hybrid_job()
+            CHSH_client_part()
         elif num == '6':
             job_uuid = Prompt.ask("Enter job UUID")
             check_job_info(job_uuid)

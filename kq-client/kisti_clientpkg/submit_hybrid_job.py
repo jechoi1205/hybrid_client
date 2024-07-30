@@ -1,6 +1,13 @@
 import time
 import subprocess
 from .rabbitmq_utils import rabbitmq_update_cpu_iter, rabbitmq_check_qpu_iter, rabbitmq_update_job_status
+from .job_mgmt import run_emul
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+server_url = os.getenv("SERVER_URL")
 
 
 #def submit_hybrid_job(jobInfo: schemas.JobCreate, db: Session, jobUUID: str):
@@ -29,6 +36,11 @@ def submit_hybrid_job():
             print("~~~qpu circuit send~~~")
             rabbitmq_update_cpu_iter(cpu_iter)    ## 메시지큐에 cpu_iter 전달하고 == QPU run 
             #time.sleep(5)
+            payload = {
+                    "json_data": 'data',
+                    "filename": 'file_path'
+                }
+            run_emul(payload)
             qpu_iter = rabbitmq_check_qpu_iter()
             time.sleep(10)
             print("qpu_iter: ", qpu_iter)
@@ -44,7 +56,13 @@ def submit_hybrid_job():
                 sum = sum + i
                 print("sum = ", sum)
                 rabbitmq_update_cpu_iter(cpu_iter)
+                payload = {
+                    "json_data": 'data',
+                    "filename": 'file_path'
+                }
+                run_emul(payload)
                 time.sleep(5)
+                
                 ## qpu running...
                 qpu_iter = rabbitmq_check_qpu_iter()
                 time.sleep(10)
