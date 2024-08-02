@@ -25,3 +25,20 @@ SERVER_URL과 RABBITMQ_HOST 부분에 API server의 IP address 입력하기
 * SERVER_URL=http://192.168.0.5:8001
 * RABBITMQ_HOST="192.168.0.5"
 ```
+
+## [팝업창을 위한 python tkinter 설치]
+```
+[MacOS]
+brew install tcl-tk@python3.11
+
+export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/tcl-tk/lib"
+export CPPFLAGS="-I/usr/local/opt/tcl-tk/include"
+export PKG_CONFIG_PATH="/usr/local/opt/tcl-tk/lib/pkgconfig"
+
+source .zshrc
+
+[Linux]
+sudo apt-get update
+sudo apt-get install python3-tk
+```
