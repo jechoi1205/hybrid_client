@@ -1,0 +1,5 @@
+sqlalchemy
+qiskit
+pennylane
+pika~=1.3.2
+json
