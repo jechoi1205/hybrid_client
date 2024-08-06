@@ -81,7 +81,7 @@ def run_kriss_emul(emul_file):
         "json_data": emul_file
     }
     try:
-        response = requests.post(f"http://192.168.0.9:8001/kriss_emul/", json=payload)
+        response = requests.post(f"{server_url}/kriss_emul/", json=payload)
         response.raise_for_status()
         json_response = response.json()
         #print(f"POST /emul/ Response:")
@@ -104,7 +104,7 @@ def run_kriss_emul(emul_file):
 
 def run_emul(payload):
     try:
-        response = requests.post(f"http://192.168.0.9:8001/emul/", json=payload)
+        response = requests.post(f"{server_url}/emul/", json=payload)
         response.raise_for_status()
         json_response = response.json()
         #print(f"POST /emul/ Response:")
