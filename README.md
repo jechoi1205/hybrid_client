@@ -38,7 +38,10 @@ export PKG_CONFIG_PATH="/usr/local/opt/tcl-tk/lib/pkgconfig"
 
 source .zshrc
 
-[Linux]
+[Ubuntu]
 sudo apt-get update
 sudo apt-get install python3-tk
+
+[CentOS]
+sudo yum install python3-tkinter
 ```
