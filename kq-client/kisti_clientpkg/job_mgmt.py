@@ -89,7 +89,8 @@ def run_kriss_emul(emul_file):
             #print("Script execution succeeded.")
             if "output" in json_response:
                 #print("Script output:")
-                print((json_response["output"]))
+                print(" ")
+                #print((json_response["output"]))
         else:
             print("Script execution failed.")
             if "error_message" in json_response:

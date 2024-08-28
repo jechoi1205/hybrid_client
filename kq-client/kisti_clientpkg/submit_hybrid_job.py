@@ -1,7 +1,6 @@
 import time
-import subprocess
-from .rabbitmq_utils import rabbitmq_update_cpu_iter, rabbitmq_check_qpu_iter, rabbitmq_update_job_status
-from .job_mgmt import run_emul
+from rabbitmq_utils import rabbitmq_update_cpu_iter, rabbitmq_check_qpu_iter, rabbitmq_update_job_status
+from job_mgmt import run_emul
 from dotenv import load_dotenv
 import os
 

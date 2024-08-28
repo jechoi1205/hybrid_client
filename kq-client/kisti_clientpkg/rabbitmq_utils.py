@@ -1,5 +1,5 @@
 import json, os
-from .mq_pub_con import RabbitPublisher, QueueInformation, RabbitConsumer
+from mq_pub_con import RabbitPublisher, QueueInformation, RabbitConsumer
 from dotenv import load_dotenv
 
 load_dotenv()

@@ -9,7 +9,8 @@ console = Console()
 server_url = os.getenv("SERVER_URL")
 
 current_working_dir = os.getcwd()
-file_dir = os.path.join(current_working_dir, 'kq-client', 'storage', 'mywork')
+#file_dir = os.path.join(current_working_dir, 'kq-client', 'storage', 'mywork')
+file_dir = os.path.join(current_working_dir)
 file_dir_abs = os.path.abspath(file_dir)
 
 def download_file(json_data):
