@@ -1,9 +1,9 @@
 import pennylane as qml
 from pennylane import numpy as np
 import matplotlib.pyplot as plt
-from .rabbitmq_utils import rabbitmq_update_cpu_iter, rabbitmq_check_qpu_iter, rabbitmq_update_job_status
-from .job_mgmt import run_emul
-from .CHSH_emulator import chsh_correlator
+from rabbitmq_utils import rabbitmq_update_cpu_iter, rabbitmq_check_qpu_iter, rabbitmq_update_job_status
+from job_mgmt import run_emul
+from CHSH_emulator import chsh_correlator
 from pennylane._grad import numerical_grad
 
 chsh_dev = qml.device("default.qubit", wires=2)
@@ -111,40 +111,44 @@ def CHSH_client_part():
 
     for i in range(num_steps):
         print(i, "print", init_settings)
-        value = -(chsh_cost(init_settings))
-        print("value = ", value)
-        values.append(value)
-        settings_list.append(init_settings)
+        #value = -(chsh_cost(init_settings))
+        #print("value = ", value)
+        #values.append(value)
+        #settings_list.append(init_settings)
     
-        if i % 1 == 0:
-            print("iteration : ", i, ", value : ", value, "init_settings : ", init_settings)
+        #if i % 1 == 0:
+        #    print("iteration : ", i, ", value : ", value, "init_settings : ", init_settings)
     
         init_settings = opt.step(chsh_cost, init_settings)
         
         
-        if i % 1 == 0:
-            print("iteration : ", i, ", value : ", value, "updated_settings : ", init_settings)
+        #if i % 1 == 0:
+        #    print("iteration : ", i, ", value : ", value, "updated_settings : ", init_settings)
 
 
     final_value = -(chsh_cost(init_settings))
-    values.append(final_value)
-    settings_list.append(init_settings)
+    #values.append(final_value)
+    #settings_list.append(init_settings)
     
-    max_value = max(values)
-    max_id = values.index(max_value)
-    opt_settings = settings_list[max_id]
+    #max_value = max(values)
+    #max_id = values.index(max_value)
+    #opt_settings = settings_list[max_id]
 
-    print("max value : ", max_value)
-    print("optimal settings : ", opt_settings, "\n")
-    print("theoretical max : ", 2 * np.sqrt(2), "\n")
+    #print("max value : ", max_value)
+    #print("optimal settings : ", opt_settings, "\n")
+    #print("theoretical max : ", 2 * np.sqrt(2), "\n")
 
-    plt.plot(range(num_steps + 1), values, "o--", label="Optimization")
-    plt.plot(range(num_steps + 1), [2]*len(range(num_steps + 1)), label="Classical upperbound")
-    plt.plot(range(num_steps + 1), [2*np.sqrt(2)]*len(range(num_steps + 1)), label="Quantum upperbound")#
+    #plt.plot(range(num_steps + 1), values, "o--", label="Optimization")
+    #plt.plot(range(num_steps + 1), [2]*len(range(num_steps + 1)), label="Classical upperbound")
+    #plt.plot(range(num_steps + 1), [2*np.sqrt(2)]*len(range(num_steps + 1)), label="Quantum upperbound")#
 
-    plt.title("Optimization of CHSH Violation\n")
-    plt.ylabel("CHSH value")
-    plt.xlabel("Iteration")
-    plt.legend()
+    #plt.title("Optimization of CHSH Violation\n")
+    #plt.ylabel("CHSH value")
+    #plt.xlabel("Iteration")
+    #plt.legend()
 
-    plt.show()
+    #plt.show()
+    
+
+if __name__ == "__main__":
+    CHSH_client_part()
