@@ -5,7 +5,7 @@ sys.path.append(os.path.expanduser('/root/Demo'))
 sys.path.append('/home/junghee/hybrid_client/kq-client/kisti_clientpkg')
 from saoovqe import *
 from qiskit_nature.second_q.mappers import ParityMapper
-from popup import show_popup, gui_setup, show_image_popup
+from popup import show_popup, show_C_popup, show_H_popup, gui_setup, show_image_popup
 from submit_file import submit_file
 from job_mgmt import run_kriss_emul
 from download_file import download_file
@@ -39,7 +39,11 @@ def run_LiH(root):
     ### hybrid_client interface ###
     submit_file(hamiltonian_dir)
     noti1 = f"HAMILTONIAN"
-    root.after(0, show_popup, root, noti1, 800, 200, 'lightblue')
+    root.after(0, show_H_popup, root, noti1, 750, 250, 'lightblue')
+    time.sleep(1.5)
+
+    noti0 = f"calculating..."
+    root.after(0, show_C_popup, root, noti0, 0, 1450, 180, 'white')
     ### hybrid_client interface ###
     
     
@@ -63,7 +67,7 @@ def run_LiH(root):
         download_file1 = 'noref_0_0.rdm1'
         download_file(download_file1)
         noti2 = f"RESULTS"
-        root.after(0, show_popup, root, noti2, 800, 700, 'lightgreen')
+        root.after(0, show_popup, root, noti2, 750, 750, 'lightgreen')
 
         download_file2 = 'noref_0_0.rdm2'
         download_file(download_file2)
@@ -78,7 +82,7 @@ def run_LiH(root):
         download_file4 = 'cost_function_plot.png'
         download_file(download_file4)
         #noti5 = f"{download_file4} 파일을 받았습니다!!!"
-        root.after(0, show_image_popup, root, download_file4, 1500, 80)
+        root.after(0, show_image_popup, root, download_file4, 1450, 150)
 
         time.sleep(3)
 
@@ -90,10 +94,20 @@ def run_LiH(root):
         update = solver.update_problem(json_file_path)
         ### hybrid_client interface ###
         submit_file(hamiltonian_dir)
-        noti1 = f"HAMILTONIAN"
-        root.after(0, show_popup, root, noti1, 800, 200, 'lightblue')
+
+        if(iter == 6):
+            noti1 = f"HAMILTONIAN"
+        else:
+            noti1 = f"HAMILTONIAN"
+            root.after(0, show_H_popup, root, noti1, 750, 250, 'lightblue')
+            time.sleep(1.5)
+            noti0 = f"calculating..."
+            root.after(0, show_C_popup, root, noti0, 0, 1450, 180, 'white')
+
+
         ### hybrid_client interface ###
         E_OO.append(update)
+
 
         if iter > 1:
             score_best = solver.import_eigenvalue(file_path="min_eigenvalue.txt")

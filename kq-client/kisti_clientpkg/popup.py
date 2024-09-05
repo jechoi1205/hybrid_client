@@ -9,12 +9,35 @@ from PIL import Image, ImageTk
 def show_popup(root, message, x, y, color, font_size=30):
     popup = tk.Toplevel(root)
     popup.title("Notification")
-    popup.geometry(f"300x200+{x}+{y}")
+    popup.geometry(f"300x100+{x}+{y}")
     popup.configure(bg=color)
 
-    label = tk.Label(popup, text=message, pady=60, bg=color, font=("Helvetica", font_size, "bold"))
+    label = tk.Label(popup, text=message, pady=50, bg=color, font=("Helvetica", font_size, "bold"))
     label.pack()
     popup.after(3000, popup.destroy)
+    
+def show_H_popup(root, message, x, y, color, font_size=30):
+    popup = tk.Toplevel(root)
+    popup.title("Notification")
+    popup.geometry(f"300x100+{x}+{y}")
+    popup.configure(bg=color)
+
+    label = tk.Label(popup, text=message, pady=50, bg=color, font=("Helvetica", font_size, "bold"))
+    label.pack()
+    popup.after(1500, popup.destroy)
+    
+def show_C_popup(root, message, flag, x, y, color, font_size=30):
+    popup = tk.Toplevel(root)
+    popup.title("")
+    popup.geometry(f"300x100+{x}+{y}")
+    popup.configure(bg=color)
+
+    label = tk.Label(popup, text=message, pady=50, bg=color, font=("Helvetica", font_size, "bold"))
+    label.pack()
+    if(flag == 0):
+        popup.after(4500, popup.destroy)
+    else:
+        popup.after(1500, popup.destroy)
     
     
 def show_image_popup(root, image_path, x, y, width=300, height=150, delay=3000):
